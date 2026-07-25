@@ -122,3 +122,35 @@ SELECT id, home_type,
     END AS price
 FROM Rooms
 ```
+
+## Задание 168 Средняя ставка по типу беттинга `Entain`
+
+В таблице bets поле betting_type принимает значения sports, casino, poker, esports.
+
+Напишите запрос, который вернёт betting_type и avg_amount — средний размер ставки, округлённый до двух знаков. Отсортируйте по avg_amount по возрастанию.
+Поля в результирующей таблице: `betting_type`, `avg_amount`
+
+```sql
+SELECT betting_type, ROUND(AVG(bet_amount),2) as avg_amount
+From bets
+GROUP BY betting_type
+ORDER BY avg_amount
+```
+
+## Задание 184 VIP-пользователи по числу транзакций `Kaspi`
+
+В таблице transactions хранятся транзакции пользователей Kaspi: user_id — пользователь, transaction_date — дата, amount — сумма.
+
+Аналитики выделяют VIP-пользователей — тех, кто за январь 2024 совершил более 5 транзакций.
+
+Выведите user_id и transactions_count (число транзакций за январь 2024) таких пользователей. Отсортируйте по user_id по возрастанию.
+Поля в результирующей таблице: `user_id`, `transactions_count`
+
+```sql
+SELECT user_id, COUNT(*) as transactions_count
+FROM transactions
+WHERE MONTH(transaction_date) = 1 AND YEAR(transaction_date) = 2024
+GROUP BY user_id
+HAVING transactions_count > 5
+ORDER BY user_id
+```

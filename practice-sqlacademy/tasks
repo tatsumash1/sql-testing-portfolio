@@ -154,3 +154,45 @@ GROUP BY user_id
 HAVING transactions_count > 5
 ORDER BY user_id
 ```
+
+## Задание 189 Нации с большим числом боёв `Wargaming`
+
+В таблице player_battles хранятся бои игроков World of Tanks: player_id — игрок, nation — нация техники, на которой шёл бой, battle_date — дата боя, exp — полученный опыт.
+
+Аналитики ищут самые «воюющие» нации. Выведите нации, по которым проведено более 8 боёв.
+
+Выведите nation (нация) и battles_count (число боёв по этой нации). Отсортируйте по nation по возрастанию.
+Поля в результирующей таблице: `nation`,  `battles_count`
+
+```sql
+SELECT nation, COUNT(*) as battles_count
+FROM player_battles
+GROUP by nation
+HAVING battles_count > 8
+ORDER BY nation
+```
+
+## Задание 97 Работающие склады по городам `Самокат`
+
+Посчитать количество работающих складов на текущую дату по каждому городу. Вывести только те города, у которых количество складов более 80. Данные на выходе - город, количество складов.
+Поля в результирующей таблице: `city`, `warehouse_count`
+
+```sql
+SELECT city, COUNT(*) as warehouse_count
+FROM warehouse
+WHERE date_closed IS NULL
+GROUP BY city
+HAVING warehouse_count > 80
+```
+
+## Задание 13 Полные тёзки
+
+Вывести имена людей, у которых есть полный тёзка среди пассажиров
+Поля в результирующей таблице: `name`
+
+```sql
+SELECT  name
+From Passenger
+GROUP BY name
+HAVING COUNT(*) > 1
+```

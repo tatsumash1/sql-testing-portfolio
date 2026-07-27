@@ -196,3 +196,28 @@ From Passenger
 GROUP BY name
 HAVING COUNT(*) > 1
 ```
+
+## Задание 109 Страна города Зальцбург `ДомКлик`
+
+Выведите название страны, где находится город «Salzburg»
+Поля в результирующей таблице: `country_name`
+
+```sql
+SELECT co.name as country_name
+FROM Cities ci
+JOIN Regions re ON ci.regionid = re.id
+JOIN Countries co ON re.countryid = co.id
+WHERE ci.name = "Salzburg"
+```
+
+## Задание 6 Компании, летавшие на Boeing
+
+Какие компании совершали перелеты на Boeing
+Поля в результирующей таблице: `name`
+
+```sql
+SELECT DISTINCT co.name
+FROM Trip
+JOIN Company co ON Trip.company = co.id
+WHERE plane = "Boeing"
+```

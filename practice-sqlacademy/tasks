@@ -221,3 +221,45 @@ FROM Trip
 JOIN Company co ON Trip.company = co.id
 WHERE plane = "Boeing"
 ```
+
+## Задание 129 Номера счетов компаний с SBER в названии `GlowByte`
+
+Дана база данных с информацией о компаниях и их счетах. В таблице Company хранится информация о компаниях, в таблице Contract - информация о счетах, в таблице Company_contract - связи между компаниями и их счетами.
+
+Найти номера счетов (contract_number) по компаниям, в названии которых (company_name) встречается 'SBER'.
+Поля в результирующей таблице: `contract_number`
+
+```sql
+SELECT contract_number
+FROM Contract
+JOIN Company_contract ON Contract.contract_id = Company_contract.contract_id
+JOIN Company ON Company_contract.company_id = Company.company_id
+WHERE company_name LIKE 'SBER%'
+```
+
+## Задание 14 Города, которые посетил Bruce Willis
+
+В какие города летал Bruce Willis
+Поля в результирующей таблице: `town_to`
+
+```sql
+SELECT town_to
+FROM Trip tr
+JOIN Pass_in_trip pit ON tr.id = pit.trip
+JOIN Passenger pas ON pit.passenger = pas.id
+WHERE pas.name = 'Bruce Willis'
+```
+
+## Задание 43 Преподаватели физкультуры
+
+Выведите фамилии преподавателей, которые ведут физическую культуру (Physical Culture). Отсортируйте преподавателей по фамилии в алфавитном порядке.
+Поля в результирующей таблице: `last_name`
+
+```sql
+SELECT last_name
+FROM Teacher t
+JOIN Schedule s ON t.id = s.teacher
+JOIN Subject sub ON s.subject = sub.id
+WHERE sub.name = 'Physical Culture'
+ORDER BY t.last_name
+```

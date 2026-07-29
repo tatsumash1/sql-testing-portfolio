@@ -263,3 +263,150 @@ JOIN Subject sub ON s.subject = sub.id
 WHERE sub.name = 'Physical Culture'
 ORDER BY t.last_name
 ```
+
+## Задание #12 Количество пассажиров на рейсах
+
+Выведите идентификаторы всех рейсов и количество пассажиров на них. Обратите внимание, что на каких-то рейсах пассажиров может не быть. В этом случае выведите число "0".
+Используйте конструкцию "as count" для агрегатной функции подсчета количества пассажиров. Это необходимо для корректной проверки.
+Поля в результирующей таблице: `id`, `count`
+
+```sql
+SELECT Trip.id, COUNT(Passenger) as count
+FROM Trip
+LEFT JOIN Pass_in_trip ON Trip.id = Pass_in_trip.trip
+GROUP By Trip.id
+```
+
+## Задание 111 Население каждого региона `ДомКлик`
+
+Посчитайте население каждого региона. В качестве результата выведите название региона и его численность населения.
+Поля в результирующей таблице: `region_name`, `total_population`
+
+```sql
+SELECT Regions.name as region_name, Sum(population) as total_population
+FROM Regions
+Join Cities On Regions.id = regionid
+GROUP BY Regions.name
+```
+
+## Задание 133 Проекты, которые никогда не брались в работу `Ростелеком`
+
+Дана база данных с информацией о разработчиках и проектах. В таблице Developers хранится информация о разработчиках, в таблице Projects - информация о проектах, в таблице ProjectHistory - история работы разработчиков над проектами.
+
+Вывести все проекты (name), которые никогда не брались в работу разработчиками.
+Поля в результирующей таблице: `name`
+
+```sql
+SELECT Projects.name
+FROM Projects
+LEFT JOIN ProjectHistory ON project_id = Projects.id
+WHERE ProjectHistory.id IS NULL
+```
+
+## Задание 16 Сортировка пассажиров по количеству полетов
+
+Вывести идентификатор, имя и количество перелётов каждого пассажира, совершившего хотя бы 1 полёт. Результат отсортировать по количеству перелётов (по убыванию) и имени (по возрастанию).
+Используйте конструкцию "as count" для агрегатной функции подсчета количества перелетов. Это необходимо для корректной проверки.
+Поля в результирующей таблице: `id`, `name`, `count`
+
+```sql
+SELECT p.id, p.name, COUNT(pit.trip) as count
+FROM Passenger p
+JOIN Pass_in_trip pit On p.id = pit.passenger
+GROUP BY p.id
+HAVING count > 0
+ORDER BY count DESC, p.name
+```
+
+## Задание 75 Студенты, рожденные в мае
+
+Выведите фамилию, имя и дату рождения студентов, кто был рожден в мае.
+Поля в результирующей таблице: `last_name`, `first_name`, `birthday`
+
+```sql
+SELECT s.last_name, s.first_name, birthday
+FROM Student s
+WHERE MONTH(birthday) = 5
+```
+
+## Задание 66 Комнаты со всеми удобствами
+
+Вывести список комнат со всеми удобствами (наличие ТВ, интернета, кухни и кондиционера), а также общее количество дней и сумму за все дни аренды каждой из таких комнат.
+Используйте конструкции "as days" и "as total_fee" для вывода количества дней и суммы аренды, соответственно.
+Если комната не сдавалась, то количество дней и сумму вывести как 0.
+Поля в результирующей таблице: `home_type` ,`address` ,`days` ,`total_fee`
+
+```sql
+SELECT home_type, address, COALESCE(SUM(DATEDIFF(end_date, start_date)),0) as days, COALESCE(SUM (total), 0) as total_fee
+FROM Rooms
+LEFT JOIN Reservations ON Rooms.id = Reservations.room_id
+WHERE has_tv = 1 AND has_internet = 1 AND has_kitchen = 1 AND has_air_con = 1
+GROUP BY home_type, address
+```
+
+## Задание 164 Среднее время отклика по приложениям `Dynatrace`
+
+Платформа Dynatrace мониторит время отклика приложений. В таблице logs для каждого запроса хранится response_time_ms (миллисекунды) и application_id.
+
+Напишите запрос, который вернёт application_name (из applications.name) и avg_ms — среднее время отклика, округлённое до двух знаков. Отсортируйте результат по avg_ms по возрастанию.
+Поля в результирующей таблице: `application_name`, `avg_ms`
+
+```sql
+SELECT name as application_name, ROUND(AVG(response_time_ms),2) as avg_ms
+FROM applications
+JOIN logs ON applications.application_id = logs.application_id
+GROUP BY application_name
+ORDER BY avg_ms
+```
+
+## Задание 103 Зарплата выше руководителя `Сбербанк`
+
+Вывести список имён сотрудников, получающих большую заработную плату, чем у непосредственного руководителя.
+Поля в результирующей таблице: `name`
+
+```sql
+SELECT emp.name
+FROM Employee emp
+JOIN Employee chief ON emp.chief_id = chief.id
+WHERE emp.salary > chief.salary
+```
+
+## Задание 30 Нагруженность рейсов
+
+Вывести количество занятых мест по каждому рейсу из таблицы Pass_in_trip, отсортировав результат по убыванию количества занятых мест.
+Используйте конструкцию "as count" для агрегатной функции подсчета числа пассажиров на рейсе. Это необходимо для корректной проверки.
+Поля в результирующей таблице: `trip`, `count`
+
+```sql
+SELECT trip, COUNT(place) as count
+FROM Pass_in_trip
+GROUP BY trip
+ORDER BY count DESC 
+```
+
+## Задание 156 Средний рейтинг товара по месяцам `Zalando`
+
+Zalando собирает отзывы пользователей о товарах: в таблице reviews каждая строка — это оценка stars (от 1 до 5), оставленная пользователем user_id о товаре product_id в дату submit_date.
+
+Напишите запрос, который для каждой пары (товар, месяц) вернёт product_id, номер месяца mth и средний рейтинг avg_stars, округлённый до двух знаков после запятой. Учитывайте только товары, по которым были отзывы.
+Поля в результирующей таблице: `product_id`, `mth`, `avg_stars`
+
+```sql
+SELECT products.product_id, MONTH(submit_date) as mth, ROUND(AVG(stars), 2) as avg_stars
+FROM products
+Join reviews re ON products.product_id = re.product_id
+GROUP BY products.product_id, mth
+```
+
+## Задание 73 Комнаты, арендованные нечетное число раз
+
+Выведите id тех комнат, которые арендовали нечетное количество раз
+Используйте конструкцию "as count" для вывода количество сколько раз комнату брали в аренду
+Поля в результирующей таблице: `room_id`, `count`
+
+```sql
+SELECT room_id, COUNT(*) as count
+FROM Reservations
+GROUP By room_id
+HAVING MOD (count, 2) = 1
+```

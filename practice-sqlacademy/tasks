@@ -410,3 +410,62 @@ FROM Reservations
 GROUP By room_id
 HAVING MOD (count, 2) = 1
 ```
+
+## Задание 179 Выручка по городам `Booking.com`
+
+В таблице bookings хранятся бронирования объектов из properties. Учитывайте только завершённые бронирования (status = 'completed').
+
+Напишите запрос, который вернёт city и total_revenue (суммарную стоимость завершённых бронирований в этом городе). Отсортируйте по total_revenue по убыванию.
+Поля в результирующей таблице: `city` , `total_revenue`
+
+```sql
+SELECT city, SUM(total_price) as total_revenue
+FROM properties
+JOIN bookings ON properties.property_id = bookings.property_id
+WHERE status = "completed"
+GROUP BY city
+ORDER BY  total_revenue DESC
+```
+
+## Задание 125 Произведения, издававшиеся более 5 раз `Циан`
+
+Дана база данных автоматизирующая работу библиотеки. В таблице Books хранится информация о произведениях, в таблице BookEditions - информация об изданиях этих произведений (одно произведение может издаваться много раз в разные годы).
+
+Найти произведения, которые издавались более 5 раз. В качестве результата вывести название произведения (title).
+Поля в результирующей таблице: `title`
+
+```sql
+SELECT title
+From Books
+JOIN BookEditions ON Books.id = BookEditions.book_id
+GROUP BY title
+HAVING COUNT(BookEditions.id) > 5
+```
+## Задание 11 Пассажиры с самым длинным ФИО
+
+Выведите пассажиров с самым длинным ФИО. Пробелы, дефисы и точки считаются частью имени.
+Поля в результирующей таблице: `name`
+
+```sql
+SELECT Passenger.name
+FROM Passenger
+WHERE LENGTH(Passenger.name) = (
+                                SELECT MAX(LENGTH(Passenger.name))
+                                FROM Passenger
+                                )
+```
+
+## Задание 42 Время, проведённое в школе
+
+Сколько времени обучающийся будет находиться в школе, учась со 2-го по 4-ый уч. предмет?
+Используйте конструкцию "as time" для указания разницы во времени. Это необходимо для корректной проверки.
+Результат должен быть в формате HH:MM:SS
+Поля в результирующей таблице: `time`
+
+```sql
+SELECT DISTINCT TIMEDIFF(
+    (SELECT end_pair FROM Timepair WHERE id = 4),
+    (SELECT start_pair FROM Timepair WHERE id = 2)
+) AS time 
+FROM Timepair
+```

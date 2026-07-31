@@ -469,3 +469,88 @@ SELECT DISTINCT TIMEDIFF(
 ) AS time 
 FROM Timepair
 ```
+
+## Задание 70 Категоризация жилья по цене
+
+Необходимо категоризовать жилье на economy, comfort, premium по цене соответственно <= 100, 100 < цена < 200, >= 200. В качестве результата вывести таблицу с названием категории и количеством жилья, попадающего в данную категорию
+Используйте конструкцию "as category" и "as count" для вывода названия категории и количества такого жилья соответственно.
+Поля в результирующей таблице: `category`, `count`
+
+```sql
+SELECT 
+    CASE
+        WHEN Rooms.price <= 100 THEN "economy"
+        WHEN Rooms.price > 100 AND Rooms.price < 200 THEN "comfort"
+        WHEN Rooms.price >= 200 THEN "premium"
+    END as category, 
+    COUNT(*) as count
+FROM Rooms
+GROUP BY category
+```
+
+## Задание #76 Статус пользователя: собственник/арендатор
+
+Вывести имена всех пользователей сервиса бронирования жилья, а также два признака: является ли пользователь собственником какого-либо жилья (is_owner) и является ли пользователь арендатором (is_tenant). В случае наличия у пользователя признака необходимо вывести в соответствующее поле 1, иначе 0.
+Используйте конструкцию "AS is_owner" для отображения признака собственника жилья.
+Используйте конструкцию "AS is_tenant" для отображения признака арендатора
+Поля в результирующей таблице: `name`, `is_owner`, `is_tenant`
+
+```sql
+SELECT Users.name, 
+    CASE
+        WHEN EXISTS (SELECT 1 FROM ROOMS r WHERE r.owner_id = Users.id) Then 1
+        Else 0
+    End AS is_owner,
+    
+    CASE
+        WHEN EXISTS (SELECT 1 FROM Reservations res WHERE res.user_id = Users.id) Then 1
+        Else 0
+    End AS is_tenant
+FROM Users
+```
+
+## Задание 45 Самые используемые кабинеты
+
+Какие кабинеты чаще всего использовались для проведения занятий? Выведите те, которые использовались максимальное количество раз.
+Поля в результирующей таблице: `classroom`
+
+```sql
+SELECT classroom 
+FROM Schedule 
+WHERE classroom IS NOT NULL AND classroom <> 0
+GROUP BY classroom 
+HAVING COUNT(*) = (
+    SELECT COUNT(*) AS count 
+    FROM Schedule 
+    WHERE classroom IS NOT NULL AND classroom <> 0
+    GROUP BY classroom 
+    ORDER BY count DESC 
+    LIMIT 1
+)
+```
+
+## Задание 69 Заработок владельцев комнат
+
+Вывести идентификаторы всех владельцев комнат, что размещены на сервисе бронирования жилья и сумму, которую они заработали
+Используйте конструкцию "as owner_id" и "as total_earn" для вывода идентификаторов владельцев и заработанной суммы соответственно.
+Поля в результирующей таблице: `owner_id`, `total_earn`
+
+```sql
+SELECT owner_id as owner_id, COALESCE(SUM(total),0) as total_earn
+FROM Rooms
+LEFT JOIN Reservations ON Rooms.id = Reservations.room_id
+GROUP BY owner_id
+```
+
+## Задание 46 Классы преподавателя Krauze\
+
+В каких классах ведёт занятия преподаватель "Krauze"?
+Поля в результирующей таблице: `name`
+
+```sql
+SELECT DISTINCT Class.name
+FROM Class
+JOIN Schedule ON Class.id = Schedule.class
+JOIN Teacher ON Schedule.teacher = Teacher.id
+WHERE Teacher.last_name = "Krauze"
+```

@@ -441,6 +441,7 @@ JOIN BookEditions ON Books.id = BookEditions.book_id
 GROUP BY title
 HAVING COUNT(BookEditions.id) > 5
 ```
+
 ## Задание 11 Пассажиры с самым длинным ФИО
 
 Выведите пассажиров с самым длинным ФИО. Пробелы, дефисы и точки считаются частью имени.

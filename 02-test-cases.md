@@ -77,7 +77,7 @@
 | SQL-запрос | `SELECT o.OrderID, o.CustomerID FROM Orders o LEFT JOIN Customers c ON o.CustomerID = c.CustomerID WHERE c.CustomerID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все заказы связаны с существующими клиентами. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-006. Проверка заказов без существующего сотрудника
 
@@ -92,7 +92,7 @@
 | SQL-запрос | `SELECT o.OrderID, o.EmployeeID FROM Orders o LEFT JOIN Employees e ON o.EmployeeID = e.EmployeeID WHERE e.EmployeeID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все заказы связаны с существующими сотрудниками. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-007. Проверка заказов без существующей службы доставки
 
@@ -107,7 +107,7 @@
 | SQL-запрос | `SELECT o.OrderID, o.ShipVia FROM Orders o LEFT JOIN Shippers s ON o.ShipVia = s.ShipperID WHERE s.ShipperID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все заказы связаны с существующими службами доставки. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-008. Проверка заказов без товаров
 
@@ -122,7 +122,7 @@
 | SQL-запрос | `SELECT o.OrderID FROM Orders o LEFT JOIN "Order Details" od ON o.OrderID = od.OrderID WHERE od.OrderID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Каждый заказ содержит хотя бы один товар. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-009. Проверка даты отправки заказа
 
@@ -137,7 +137,7 @@
 | SQL-запрос | `SELECT OrderID, OrderDate, ShippedDate FROM Orders WHERE ShippedDate IS NOT NULL AND ShippedDate < OrderDate;` |
 | Ожидаемый результат | Запрос не возвращает строк. Дата отправки заказа не раньше даты создания заказа. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-010. Проверка стоимости доставки заказа
 
@@ -152,7 +152,7 @@
 | SQL-запрос | `SELECT OrderID, Freight FROM Orders WHERE Freight < 0;` |
 | Ожидаемый результат | Запрос не возвращает строк. Стоимость доставки не содержит отрицательных значений. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## Проверка товаров
 

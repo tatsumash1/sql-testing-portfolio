@@ -15,7 +15,7 @@
 | SQL-запрос | `SELECT name FROM sqlite_master WHERE type = 'table' AND name IN ('Customers', 'Orders', 'Order Details', 'Products', 'Categories', 'Suppliers', 'Employees', 'Shippers') ORDER BY name;` |
 | Ожидаемый результат | Запрос возвращает все основные таблицы Northwind: `Customers`, `Orders`, `Order Details`, `Products`, `Categories`, `Suppliers`, `Employees`, `Shippers`. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-002. Проверка связи `Orders` с `Customers`
 
@@ -30,7 +30,7 @@
 | SQL-запрос | `SELECT o.OrderID, o.CustomerID FROM Orders o LEFT JOIN Customers c ON o.CustomerID = c.CustomerID WHERE c.CustomerID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все заказы связаны с существующими клиентами. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-003. Проверка связи `Order Details` с `Orders`
 
@@ -45,7 +45,7 @@
 | SQL-запрос | `SELECT od.OrderID FROM "Order Details" od LEFT JOIN Orders o ON od.OrderID = o.OrderID WHERE o.OrderID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все строки состава заказов связаны с существующими заказами. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-004. Проверка связи `Order Details` с `Products`
 
@@ -60,7 +60,7 @@
 | SQL-запрос | `SELECT od.OrderID, od.ProductID FROM "Order Details" od LEFT JOIN Products p ON od.ProductID = p.ProductID WHERE p.ProductID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все товары из состава заказов существуют в таблице `Products`. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## Проверка заказов
 

@@ -166,10 +166,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Products` доступна. |
 | Тестовые данные | Таблица `Products`; поля `ProductID`, `ProductName` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE CategoryID IS NULL` |
+| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE CategoryID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все товары имеют категорию. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-012. Проверка наличия поставщика у товаров
 
@@ -181,10 +181,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Products` доступна. |
 | Тестовые данные | Таблица `Products`; поля `ProductID`, `ProductName` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE SupplierID IS NULL` |
+| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE SupplierID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все товары имеют поставщика. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-013. Проверка наличия названия у товаров
 
@@ -196,10 +196,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Products` доступна. |
 | Тестовые данные | Таблица `Products`; поля `ProductID`, `ProductName` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE ProductName IS NULL OR TRIM(ProductName) = ''` |
+| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE ProductName IS NULL OR TRIM(ProductName) = '';` |
 | Ожидаемый результат | Запрос не возвращает строк. Все товары имеют название. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-014. Проверка наличия цены у товаров
 
@@ -211,10 +211,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Products` доступна. |
 | Тестовые данные | Таблица `Products`; поля `ProductID`, `ProductName` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE UnitPrice IS NULL OR UnitPrice <= 0` |
+| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE UnitPrice IS NULL OR UnitPrice <= 0;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все товары имеют цену. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-015. Проверка наличия остатка товаров
 
@@ -226,10 +226,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Products` доступна. |
 | Тестовые данные | Таблица `Products`; поля `ProductID`, `ProductName` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE UnitsInStock < 0` |
+| SQL-запрос | `SELECT ProductID, ProductName FROM Products WHERE UnitsInStock < 0;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все товары имеют остаток на складе. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## Проверка состава заказов
 
@@ -243,10 +243,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Order Details` доступна. |
 | Тестовые данные | Таблица `Order Details`; поля `OrderID`, `ProductID` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT od.OrderID, od.ProductID FROM "Order Details" od LEFT JOIN Orders o ON od.OrderID = o.OrderID WHERE o.OrderID IS NULL` |
+| SQL-запрос | `SELECT od.OrderID, od.ProductID FROM "Order Details" od LEFT JOIN Orders o ON od.OrderID = o.OrderID WHERE o.OrderID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все строки состава заказа связаны с существующими заказами. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-017. Проверка заказа без существующего товара
 
@@ -258,10 +258,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Order Details` доступна. |
 | Тестовые данные | Таблица `Order Details`; поля `OrderID`, `ProductID` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT od.OrderID, od.ProductID FROM "Order Details" od LEFT JOIN Products p ON od.ProductID = p.ProductID WHERE p.ProductID IS NULL` |
+| SQL-запрос | `SELECT od.OrderID, od.ProductID FROM "Order Details" od LEFT JOIN Products p ON od.ProductID = p.ProductID WHERE p.ProductID IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Все строки состава заказа связаны с существующими товарами. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-018. Проверка количества товара в заказе
 
@@ -273,10 +273,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Order Details` доступна. |
 | Тестовые данные | Таблица `Order Details`; поля `OrderID`, `ProductID` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE Quantity > 0` |
+| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE Quantity < 0;` |
 | Ожидаемый результат | Запрос не возвращает строк. Количество товаров в заказах > 0. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-019. Проверка цены товара в заказе
 
@@ -288,10 +288,10 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Order Details` доступна. |
 | Тестовые данные | Таблица `Order Details`; поля `OrderID`, `ProductID` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE UnitPrice > 0` |
+| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE UnitPrice < 0;` |
 | Ожидаемый результат | Запрос не возвращает строк. Цена товара в заказах больше 0. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |
 
 ## TC-SQL-020. Проверка скидки заказа
 
@@ -303,7 +303,7 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Order Details` доступна. |
 | Тестовые данные | Таблица `Order Details`; поля `OrderID`, `ProductID` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE Discount BETWEEN 0 AND 1` |
+| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE Discount > 1;` |
 | Ожидаемый результат | Запрос не возвращает строк. Скидка находится в диапозоне от 0 до 1. |
 | Статус | Manual |
-| Результат | Not Run |
+| Результат | Passed |

@@ -288,7 +288,7 @@
 | Предусловия | База Northwind открыта в DB Browser for SQLite. Таблица `Order Details` доступна. |
 | Тестовые данные | Таблица `Order Details`; поля `OrderID`, `ProductID` |
 | Шаги | 1. Открыть вкладку выполнения SQL-запросов. <br> 2. Выполнить SQL-запрос. <br> 3. Проверить результат выборки. |
-| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE UnitPrice < 0;` |
+| SQL-запрос | `SELECT OrderID, ProductID FROM "Order Details" WHERE UnitPrice <= 0 OR UnitPrice IS NULL;` |
 | Ожидаемый результат | Запрос не возвращает строк. Цена товара в заказах больше 0. |
 | Статус | Manual |
 | Результат | Passed |

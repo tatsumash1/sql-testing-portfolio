@@ -555,3 +555,77 @@ JOIN Schedule ON Class.id = Schedule.class
 JOIN Teacher ON Schedule.teacher = Teacher.id
 WHERE Teacher.last_name = "Krauze"
 ```
+
+## Задание №199
+
+Из списка на надбавку выпали двое на границе
+Отчёт собирает сотрудников с зарплатой от 160000 — тех, кому положена надбавка.
+
+В выгрузку не попали сотрудники с зарплатой ровно 160000, хотя граница входит в диапазон.
+
+Выведите name (имя сотрудника) и salary (его зарплата).
+Найдите ошибку в запросе
+
+```sql
+SELECT e.name,
+       e.salary
+FROM employees e
+WHERE e.salary >= 160000
+```
+
+## Задание №198
+
+Считается вся численность отдела вместо нужной части
+Отчёт должен показывать, сколько сотрудников в каждом отделе имеют руководителя. Отделов в выдаче столько же, сколько в компании, но числа завышены: в них попадают и те сотрудники, у кого руководителя нет.
+
+У части сотрудников в колонке manager_id ничего не записано.
+
+Выведите department_id (id отдела) и employees_with_manager (число сотрудников отдела, у которых есть руководитель).
+
+```sql
+SELECT e.department_id,
+       COUNT(*) AS employees_with_manager
+FROM employees e
+WHERE e.manager_id IS NOT NULL 
+GROUP BY e.department_id
+```
+
+## Задание №194
+
+Отчёт потерял сотрудников без заказов
+Коллега прислал на ревью годовой отчёт по продажам. Из выгрузки пропали все, кто за 2024 год не закрыл ни одной сделки: остались только продававшие.
+
+Нужно, чтобы в результат попали все сотрудники, а у не продававших в сумме стоял 0.
+
+Выведите name (имя сотрудника) и total_amount (сумма его заказов за 2024 год).
+
+```sql
+SELECT e.name,
+       COALESCE(SUM(o.amount), 0) AS total_amount
+FROM employees e
+LEFT JOIN orders o
+    ON o.employee_id = e.id
+    AND o.created_at >= '2024-01-01'
+    AND o.created_at < '2025-01-01'
+GROUP BY e.id, e.name
+```
+
+## Задание №93
+
+Средний возраст покупателей Smartwatch
+Какой средний возраст клиентов, купивших Smartwatch (использовать наименование товара product.name) в 2024 году
+Поля в результирующей таблице:
+average_age
+
+```sql
+SELECT AVG(unique_customers.age * 1.0) as average_age
+FROM (
+    SELECT DISTINCT c.customer_key, c.age
+    FROM Customer c
+    JOIN Purchase pch ON pch.customer_key = c.customer_key
+    JOIN Product p ON p.product_key = pch.product_key
+    WHERE p.name = 'Smartwatch'
+      AND pch.date >= '2024-01-01'
+      AND pch.date < '2025-01-01'
+) as unique_customers;
+```

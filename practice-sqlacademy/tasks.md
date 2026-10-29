@@ -683,3 +683,39 @@ WHERE (e.department_id = 4
     OR e.department_id = 1)
     AND e.salary > 140000
 ```
+
+## Задание №131
+
+Количество заказов каждого зарегистрированного клиента
+Facebook
+Дана база данных с информацией о покупках и зарегистрированных клиентах. В таблице purchases хранится информация о покупках, в таблице registered_customers - информация о зарегистрированных клиентах.
+
+Напишите запрос для определения количества заказов, размещенных каждым зарегистрированным клиентом. Выведите customer_id и общее количество заказов, размещенных каждым клиентом.
+Поля в результирующей таблице:
+customer_id
+total_orders
+
+```sql
+SELECT r.customer_id, COUNT(p.purchase_id) as total_orders
+FROM registered_customers r
+LEFT JOIN purchases p 
+    ON r.customer_id = p.customer_id
+GROUP BY customer_id
+```
+
+## Задание №49
+
+Процент обучающихся в 10 A классе
+Какой процент обучающихся учится в "10 A" классе? Выведите ответ в диапазоне от 0 до 100 с округлением до четырёх знаков после запятой, например, 96.0201.
+Используйте конструкцию "as percent" для представления результата вычисления. Это необходимо для корректной проверки.
+Поля в результирующей таблице:
+percent
+
+```sql
+SELECT 
+    ROUND(
+        COUNT(CASE WHEN c.name = '10 A' THEN 1 END)*100.0/ COUNT(*), 4
+    ) as percent        
+FROM Student_in_class sc
+LEFT JOIN Class c ON sc.class = c.id
+```

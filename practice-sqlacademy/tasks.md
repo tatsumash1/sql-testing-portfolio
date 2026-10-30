@@ -719,3 +719,21 @@ SELECT
 FROM Student_in_class sc
 LEFT JOIN Class c ON sc.class = c.id
 ```
+
+# Задание №200
+
+Клиенты без покупок пропали из отчёта
+Отчёт должен показывать всех клиентов и сумму их заказов, включая тех, кто пока ничего не купил: у таких в сумме должен стоять 0.
+
+Клиенты, у которых нет ни одного заказа, до отчёта не доехали.
+
+Выведите name (имя клиента) и total_amount (сумма его заказов).
+
+```sql
+SELECT c.name,
+       COALESCE(SUM(o.amount), 0) AS total_amount
+FROM customers c
+LEFT JOIN orders o
+    ON o.customer_id = c.id
+GROUP BY c.id, c.name
+```

@@ -737,3 +737,25 @@ LEFT JOIN orders o
     ON o.customer_id = c.id
 GROUP BY c.id, c.name
 ```
+
+
+## Задание №123
+
+Количество задач у сотрудника
+Finstar Financial Group
+Необходимо написать SQL-запрос, который покажет всех сотрудников, у кого в работе менее трех задач. Результат предоставить в виде: имя сотрудника, количество задач в работе.
+Поля в результирующей таблице:
+emp_name
+task_count
+
+
+```sql
+SELECT 
+    e.emp_name, 
+    COUNT(t.id) as task_count
+FROM Employee e
+LEFT JOIN Tasks t ON e.id = t.assignee_id
+GROUP BY e.id, e.emp_name
+HAVING COUNT(t.id) < 3;
+
+```

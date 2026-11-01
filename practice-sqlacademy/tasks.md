@@ -756,6 +756,23 @@ SELECT
 FROM Employee e
 LEFT JOIN Tasks t ON e.id = t.assignee_id
 GROUP BY e.id, e.emp_name
-HAVING COUNT(t.id) < 3;
+HAVING COUNT(t.id) < 3
+```
 
+## Задание №94
+
+Покупатели Laptop и Monitor в марте
+Альфа-Банк
+Вывести имена покупателей, каждый из которых приобрёл Laptop и Monitor (использовать наименование товара product.name) в марте 2024 года.
+Поля в результирующей таблице:
+name
+
+```sql
+SELECT c.name as name
+FROM Customer c
+JOIN Purchase p ON c.customer_key = p.customer_key
+JOIN Product pr ON pr.product_key = p.product_key
+WHERE (p.date >= '2024-03-01' AND p.date < '2024-04-01') AND pr.name IN ('Laptop', 'Monitor')
+GROUP BY name
+HAVING COUNT(DISTINCT pr.name) = 2
 ```

@@ -776,3 +776,15 @@ WHERE (p.date >= '2024-03-01' AND p.date < '2024-04-01') AND pr.name IN ('Laptop
 GROUP BY name
 HAVING COUNT(DISTINCT pr.name) = 2
 ```
+
+## Задание №37
+
+Возраст самого молодого обучающегося
+Сколько лет самому молодому обучающемуся?
+Используйте конструкцию "as year" для указания возраста учащегося. Это необходимо для корректной проверки.
+Поля в результирующей таблице: year
+
+```sql
+SELECT TIMESTAMPDIFF(YEAR, MAX(birthday), NOW()) as year
+FROM Student
+```

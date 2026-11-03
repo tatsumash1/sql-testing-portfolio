@@ -788,3 +788,20 @@ HAVING COUNT(DISTINCT pr.name) = 2
 SELECT TIMESTAMPDIFF(YEAR, MAX(birthday), NOW()) as year
 FROM Student
 ```
+
+## Задание №8
+
+Полёты из Парижа
+В какие города можно улететь из Парижа (Paris) и сколько времени это займёт?
+Используйте конструкцию "as flight_time" для вывода необходимого времени. Это необходимо для корректной проверки.
+Формат для вывода времени: HH:MM:SS
+Поля в результирующей таблице:
+town_to
+flight_time
+
+```sql
+SELECT town_to as town_to, TIMEDIFF(time_in, time_out) as flight_time
+FROM Trip
+WHERE town_from = 'Paris'
+```
+

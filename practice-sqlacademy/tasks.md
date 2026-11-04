@@ -805,3 +805,12 @@ FROM Trip
 WHERE town_from = 'Paris'
 ```
 
+## Задание №53
+Изменить имя на "Andie Anthony"
+Измените имя "Andie Quincey" на новое "Andie Anthony".
+
+```sql
+UPDATE FamilyMembers 
+SET member_name = 'Andie Anthony' 
+WHERE member_name = 'Andie Quincey';
+```

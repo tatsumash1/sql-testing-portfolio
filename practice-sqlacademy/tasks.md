@@ -840,3 +840,15 @@ VALUES (
     (SELECT good_type_id FROM GoodTypes WHERE good_type_name = 'food')
 )
 ```
+
+## Задание №2
+
+Названия всех авиакомпаний
+Вывести названия всех авиакомпаний.
+Поля в результирующей таблице:
+name
+
+```sql
+SELECT c.name
+FROM Company c
+```

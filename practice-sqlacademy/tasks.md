@@ -806,6 +806,7 @@ WHERE town_from = 'Paris'
 ```
 
 ## Задание №53
+
 Изменить имя на "Andie Anthony"
 Измените имя "Andie Quincey" на новое "Andie Anthony".
 
@@ -813,4 +814,29 @@ WHERE town_from = 'Paris'
 UPDATE FamilyMembers 
 SET member_name = 'Andie Anthony' 
 WHERE member_name = 'Andie Quincey';
+```
+
+## Задание №56
+
+Удалить перелеты из Москвы
+Удалить все перелеты, совершенные из Москвы (Moscow).
+
+```sql
+DELETE FROM Trip
+WHERE town_from = 'Moscow'
+```
+
+## Задание №51
+
+Добавить товар "Cheese"
+Добавьте товар с именем "Cheese" и типом "food" в список товаров (Goods).
+В качестве первичного ключа (good_id) укажите количество записей в таблице + 1.
+
+```sql
+INSERT INTO Goods (good_id, good_name, type)
+VALUES (
+    (SELECT total + 1 FROM (SELECT COUNT(*) AS total FROM Goods) AS temp), 
+    'Cheese', 
+    (SELECT good_type_id FROM GoodTypes WHERE good_type_name = 'food')
+)
 ```

@@ -852,3 +852,21 @@ name
 SELECT c.name
 FROM Company c
 ```
+
+## Задание №195
+Дашборд завышает численность отделов
+Третий день дашборд завышает численность отделов. Отделов в отчёте столько же, сколько в компании, и суммы заказов верные: расходится только число сотрудников, причём сильнее там, где больше заказов.
+
+Выведите name (название отдела), employees_count (число сотрудников в нём) и total_amount (сумма их заказов).
+
+```sql
+SELECT d.name,
+       COUNT(DISTINCT (e.id)) AS employees_count,
+       COALESCE(SUM(o.amount), 0) AS total_amount
+FROM departments d
+JOIN employees e
+    ON e.department_id = d.id
+LEFT JOIN orders o
+    ON o.employee_id = e.id
+GROUP BY d.id, d.name
+```

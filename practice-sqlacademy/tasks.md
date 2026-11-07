@@ -870,3 +870,17 @@ LEFT JOIN orders o
     ON o.employee_id = e.id
 GROUP BY d.id, d.name
 ```
+
+## Задание №34
+
+Количество 10-х классов
+Сколько всего 10-ых классов?
+Используйте конструкцию "as count" для агрегатной функции подсчета количества классов. Это необходимо для корректной проверки.
+Поля в результирующей таблице:
+count
+
+```sql
+SELECT COUNT(Class.id) as count
+FROM Class
+WHERE Class.name LIKE '10%'
+```

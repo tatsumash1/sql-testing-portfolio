@@ -884,3 +884,16 @@ SELECT COUNT(Class.id) as count
 FROM Class
 WHERE Class.name LIKE '10%'
 ```
+
+## Задание №41
+
+Начало четвёртого занятия
+Выясните, во сколько по расписанию начинается четвёртое занятие.
+Поля в результирующей таблице:
+start_pair
+
+```sql
+SELECT start_pair
+FROM Timepair
+WHERE id = 4
+```

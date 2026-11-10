@@ -898,3 +898,15 @@ SELECT start_pair
 FROM Timepair
 WHERE id = 4
 ```
+
+## Задание #36
+Обучающиеся, живущие на улице Пушкина
+Выведите информацию об обучающихся, живущих на улице Пушкина (ul. Pushkina).
+Поля в результирующей таблице:
+*
+
+```sql
+SELECT *
+FROM Student
+WHERE address LIKE 'ul. Pushkina%'
+```

@@ -899,7 +899,7 @@ FROM Timepair
 WHERE id = 4
 ```
 
-## Задание #36
+## Задание №36
 Обучающиеся, живущие на улице Пушкина
 Выведите информацию об обучающихся, живущих на улице Пушкина (ul. Pushkina).
 Поля в результирующей таблице:
@@ -909,4 +909,18 @@ WHERE id = 4
 SELECT *
 FROM Student
 WHERE address LIKE 'ul. Pushkina%'
+```
+
+## Задание №9
+
+Компании с рейсами из Владивостока
+Какие компании организуют перелеты из Владивостока (Vladivostok)?
+Поля в результирующей таблице:
+name
+
+```sql
+SELECT DISTINCT c.name
+FROM Trip t
+JOIN Company c ON c.id = t.company
+WHERE t.town_from = 'Vladivostok';
 ```

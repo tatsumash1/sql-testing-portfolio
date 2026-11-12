@@ -924,3 +924,15 @@ FROM Trip t
 JOIN Company c ON c.id = t.company
 WHERE t.town_from = 'Vladivostok';
 ```
+
+## Задание №22
+Имена всех матерей
+Найти имена всех матерей (mother).
+Поля в результирующей таблице:
+member_name
+
+```sql
+SELECT member_name
+FROM FamilyMembers
+WHERE status = 'mother'
+```

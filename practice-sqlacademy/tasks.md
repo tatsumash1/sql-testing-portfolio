@@ -936,3 +936,31 @@ SELECT member_name
 FROM FamilyMembers
 WHERE status = 'mother'
 ```
+
+## Задание №217
+
+Траты по картам по категориям за март
+BBVA
+BBVA хранит оплаты картой в таблице card_payments: дату и время оплаты paid_at, категорию трат category и сумму amount в евро.
+
+Напишите запрос, который для каждой категории с оплатами в марте 2025 года вернёт category, число этих оплат payments и их сумму total_spent. Отсортируйте результат по total_spent по убыванию.
+Поля в результирующей таблице:
+category
+payments
+total_spent
+
+```sql
+SELECT 
+    category,
+    COUNT(*) AS payments,
+    SUM(amount) AS total_spent
+FROM 
+    card_payments
+WHERE 
+    paid_at >= '2025-03-01 00:00:00' 
+    AND paid_at < '2025-04-01 00:00:00'
+GROUP BY 
+    category
+ORDER BY 
+    total_spent DESC;
+```

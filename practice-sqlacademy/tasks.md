@@ -964,3 +964,18 @@ GROUP BY
 ORDER BY 
     total_spent DESC;
 ```
+
+## Задание №15
+Прибытие Steve Martin в Лондон
+Выведите идентификатор пассажира Стив Мартин (Steve Martin) и дату и время его прилёта в Лондон (London).
+Поля в результирующей таблице:
+id
+time_in
+
+```sql
+SELECT p.id, time_in
+FROM Trip t
+JOIN Pass_in_trip on Pass_in_trip.trip = t.id
+JOIN Passenger p ON p.id = Pass_in_trip.passenger
+WHERE p.name = 'Steve Martin' AND t.town_to = 'London'
+```

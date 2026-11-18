@@ -979,3 +979,16 @@ JOIN Pass_in_trip on Pass_in_trip.trip = t.id
 JOIN Passenger p ON p.id = Pass_in_trip.passenger
 WHERE p.name = 'Steve Martin' AND t.town_to = 'London'
 ```
+
+## Задание №50
+Процент родившихся в 2000 году
+Какой процент обучающихся родился в 2000 году? Результат округлить до целого в меньшую сторону.
+Используйте конструкцию "as percent" для указания процента. Это необходимо для корректной проверки.
+Поля в результирующей таблице:
+percent
+
+```sql
+Select FLOOR(COUNT(*) * 100 / (SELECT COUNT(*) FROM Student)) as percent
+FROM Student
+WHERE YEAR(birthday) = 2000
+```

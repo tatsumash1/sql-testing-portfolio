@@ -992,3 +992,17 @@ Select FLOOR(COUNT(*) * 100 / (SELECT COUNT(*) FROM Student)) as percent
 FROM Student
 WHERE YEAR(birthday) = 2000
 ```
+
+## Задание №19
+Кто покупал картошку
+Определить, кто из членов семьи покупал картошку (potato).
+Поля в результирующей таблице:
+status
+
+```sql
+SELECT DISTINCT status
+FROM FamilyMembers
+JOIN Payments ON FamilyMembers.member_id = Payments.family_member
+JOIN Goods ON Payments.good = Goods.good_id
+WHERE Goods.good_name = 'potato'
+```

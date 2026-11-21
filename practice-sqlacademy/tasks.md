@@ -1006,3 +1006,17 @@ JOIN Payments ON FamilyMembers.member_id = Payments.family_member
 JOIN Goods ON Payments.good = Goods.good_id
 WHERE Goods.good_name = 'potato'
 ```
+
+## Задание №114
+Вторые пилоты в Нью-Йорк
+Т-Банк
+Напишите запрос, который выведет имена пилотов, которые в качестве второго пилота (second_pilot_id) в августе 2023 года летали в New York.
+Поля в результирующей таблице:
+name
+
+```sql
+SELECT DISTINCT name
+FROM Pilots
+JOIN Flights ON Pilots.pilot_id = Flights.second_pilot_id
+WHERE destination = 'New York' AND (flight_date >= '2023-08-01' AND flight_date < '2023-09-01')
+```

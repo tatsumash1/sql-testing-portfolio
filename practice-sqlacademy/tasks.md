@@ -1020,3 +1020,16 @@ FROM Pilots
 JOIN Flights ON Pilots.pilot_id = Flights.second_pilot_id
 WHERE destination = 'New York' AND (flight_date >= '2023-08-01' AND flight_date < '2023-09-01')
 ```
+
+## Задание №28
+Рейсы из Ростова в Москву
+Сколько рейсов совершили авиакомпании из Ростова (Rostov) в Москву (Moscow)?
+Используйте конструкцию "as count" для агрегатной функции подсчета количества рейсов. Это необходимо для корректной проверки.
+Поля в результирующей таблице:
+count
+
+```sql
+SELECT COUNT(*) as count
+FROM Trip
+WHERE Trip.town_from = 'Rostov' AND Trip.town_to = 'Moscow'
+```
